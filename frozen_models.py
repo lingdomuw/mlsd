@@ -215,7 +215,9 @@ def main(_):
         output1 = model(input1)
     # convert model here
     converter = tf.lite.TFLiteConverter.from_keras_model(model)
+    converter.experimental_enable_resource_variables = True
 
+    
     if cfg.fp16:
         converter.optimizations = [tf.lite.Optimize.DEFAULT]
         converter.target_spec.supported_types = [tf.float16]
