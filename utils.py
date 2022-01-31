@@ -18,10 +18,13 @@ def pred_lines(image, interpreter, input_details, output_details, input_shape=[5
     interpreter.set_tensor(input_details[0]['index'], batch_image)
     interpreter.invoke()
 
-    pts = interpreter.get_tensor(output_details[0]['index'])[0]
-    pts_score = interpreter.get_tensor(output_details[1]['index'])[0]
-    vmap = interpreter.get_tensor(output_details[2]['index'])[0]
 
+    pts = interpreter.get_tensor(output_details[0]['index'])[0]
+    print(pts.shape)
+    pts_score = interpreter.get_tensor(output_details[1]['index'])[0]
+    print(pts_score.shape)
+    vmap = interpreter.get_tensor(output_details[2]['index'])[0]
+    print(vmap.shape)
     start = vmap[:,:,:2]
     end = vmap[:,:,2:]
     dist_map = np.sqrt(np.sum((start - end) ** 2, axis=-1))
